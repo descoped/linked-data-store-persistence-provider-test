@@ -1,9 +1,9 @@
-package no.ssb.lds.core.persistence.test;
+package io.descoped.lds.core.persistence.test;
 
-import no.ssb.lds.api.json.JsonNavigationPath;
-import no.ssb.lds.api.specification.SpecificationElement;
-import no.ssb.lds.api.specification.SpecificationElementType;
-import no.ssb.lds.api.specification.SpecificationValidator;
+import io.descoped.lds.api.json.JsonNavigationPath;
+import io.descoped.lds.api.specification.SpecificationElement;
+import io.descoped.lds.api.specification.SpecificationElementType;
+import io.descoped.lds.api.specification.SpecificationValidator;
 
 import java.util.List;
 import java.util.Map;

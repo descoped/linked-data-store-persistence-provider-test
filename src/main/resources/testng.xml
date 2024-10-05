@@ -3,7 +3,7 @@
 
     <test name="default" enabled="false">
         <classes>
-            <class name="no.ssb.lds.core.persistence.postgres.PostgresIntegrationTest" />
+            <class name="io.descoped.lds.core.persistence.postgres.PostgresIntegrationTest"/>
 
         </classes>
     </test>

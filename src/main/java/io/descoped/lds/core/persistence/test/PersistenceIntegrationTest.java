@@ -1,35 +1,55 @@
-package no.ssb.lds.core.persistence.test;
+package io.descoped.lds.core.persistence.test;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import io.descoped.lds.api.json.JsonNavigationPath;
+import io.descoped.lds.api.persistence.DocumentKey;
+import io.descoped.lds.api.persistence.PersistenceDeletePolicy;
+import io.descoped.lds.api.persistence.Transaction;
+import io.descoped.lds.api.persistence.json.JsonDocument;
+import io.descoped.lds.api.persistence.json.JsonTools;
+import io.descoped.lds.api.persistence.reactivex.Range;
+import io.descoped.lds.api.persistence.reactivex.RxJsonPersistence;
+import io.descoped.lds.api.specification.Specification;
+import io.descoped.lds.api.specification.SpecificationElementType;
 import io.reactivex.Flowable;
-import no.ssb.lds.api.json.JsonNavigationPath;
-import no.ssb.lds.api.persistence.DocumentKey;
-import no.ssb.lds.api.persistence.PersistenceDeletePolicy;
-import no.ssb.lds.api.persistence.Transaction;
-import no.ssb.lds.api.persistence.json.JsonDocument;
-import no.ssb.lds.api.persistence.json.JsonTools;
-import no.ssb.lds.api.persistence.reactivex.Range;
-import no.ssb.lds.api.persistence.reactivex.RxJsonPersistence;
-import no.ssb.lds.api.specification.Specification;
-import no.ssb.lds.api.specification.SpecificationElementType;
 import org.json.JSONException;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.testng.annotations.Test;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static io.descoped.lds.api.persistence.json.JsonTools.mapper;
+import static io.descoped.lds.core.persistence.test.SpecificationBuilder.arrayNode;
+import static io.descoped.lds.core.persistence.test.SpecificationBuilder.arrayRefNode;
+import static io.descoped.lds.core.persistence.test.SpecificationBuilder.booleanNode;
+import static io.descoped.lds.core.persistence.test.SpecificationBuilder.numericNode;
+import static io.descoped.lds.core.persistence.test.SpecificationBuilder.objectNode;
+import static io.descoped.lds.core.persistence.test.SpecificationBuilder.refNode;
+import static io.descoped.lds.core.persistence.test.SpecificationBuilder.stringNode;
 import static java.lang.String.format;
-import static java.time.ZonedDateTime.*;
-import static no.ssb.lds.api.persistence.json.JsonTools.mapper;
-import static no.ssb.lds.core.persistence.test.SpecificationBuilder.*;
+import static java.time.ZonedDateTime.now;
+import static java.time.ZonedDateTime.of;
+import static java.time.ZonedDateTime.parse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertNotSame;
+import static org.testng.Assert.assertNull;
+import static org.testng.Assert.assertTrue;
 
 public abstract class PersistenceIntegrationTest {
 
